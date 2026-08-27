@@ -82,12 +82,12 @@ To start this server, follow the steps below.
 
    - `FIRESTORE_DATABASE_ID`
    - `BASE_URL` (e.g., `http://localhost:8080`)
-   - `VCKNOTS_AUTHZ_HTTP_ALLOWED` (`true` allows an HTTP endpoint for the Authorization Server Issuer; for local development/testing)
+   - `VCKNOTS_AUTHZ_HTTP_ALLOWED` (`true` allows an HTTP authorization server issuer for local development and testing)
    - `PORT` (default: `8080`)
    - `PRIVATE_KEY_PATH`
    - `CERTIFICATE_PATH`
 
-   Do not enable `VCKNOTS_AUTHZ_HTTP_ALLOWED` in production. Authorization Server Issuer query and fragment components are prohibited even when it is enabled.
+   `VCKNOTS_AUTHZ_HTTP_ALLOWED` is independent of `VcknotsOptions.debug`. Do not enable it in production. Authorization server issuer query and fragment components are prohibited even when it is enabled.
 
    Configure the DPoP mode (`off` / `optional` / `required`) in the OAuth policy in `server/samples/oauth-server.json`. OAuth clients and public keys for `private_key_jwt` are configured in `server/samples/oauth-clients.json`. The Google Cloud server uses the same `server-core` implementation as the single server, so see the [single-server README](../single/README.md#post-token) for mode-specific behavior, nonce challenges, client authentication, and error responses.
 

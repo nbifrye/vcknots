@@ -109,7 +109,7 @@ const context = initializeContext({
 
 When `debug: true`:
 
-- insecure `http://` endpoints are allowed
+- insecure `http://` values are allowed for the `CredentialIssuerMetadata` endpoints listed below
 - localhost development workflows are enabled
 
 When `debug: false` or not set(undefined):
@@ -126,6 +126,8 @@ When `debug: false` or not set(undefined):
 ```
 
 Use HTTPS endpoints in production environments.
+
+Authorization server issuer validation is independent of `debug`. The examples in this guide use an HTTP issuer for local development, so set `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` before starting the server. Do not enable this override in production.
 
 ---
 
@@ -197,6 +199,8 @@ const issuerId = "https://issuer.example.com"
 ### 1. Initializing Default Metadata
 
 Example of initializing the default Issuer and authorization server metadata when the server starts:
+
+The example uses `http://localhost:8080`, so it requires `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` for local development.
 
 ```typescript
 import issuerMetadataConfigRaw from '../samples/issuer_metadata.json' with { type: 'json' }

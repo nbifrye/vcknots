@@ -22,6 +22,7 @@ describe('AuthorizationServerIssuer', () => {
   it('validates issuer URLs', () => {
     const cases: [string | undefined, string, boolean][] = [
       [undefined, 'https://auth.example.com', true],
+      [undefined, 'HTTPS://auth.example.com', true],
       [undefined, 'https://auth.example.com/tenant-a', true],
       [undefined, 'http://auth.example.com', false],
       ['', 'http://auth.example.com', false],

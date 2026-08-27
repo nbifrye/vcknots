@@ -109,7 +109,7 @@ const context = initializeContext({
 
 `debug: true` の場合:
 
-- insecure な `http://` endpoint を許可
+- 下記の `CredentialIssuerMetadata` endpoint に insecure な `http://` URL を許可
 - localhost 開発環境向けの動作を有効化
 
 `debug: false` または設定無し(undefined)の場合:
@@ -126,6 +126,8 @@ const context = initializeContext({
 ```
 
 本番環境では HTTPS endpoint を使用してください。
+
+Authorization Server の issuer validation は `debug` から独立しています。このガイドの例ではローカル開発用に HTTP issuer を使用するため、サーバー起動前に `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` を設定してください。本番環境ではこの設定を有効化しないでください。
 
 ---
 
@@ -196,6 +198,8 @@ const issuerId = "https://issuer.example.com"
 ### 1. デフォルトメタデータの初期化
 
 サーバー起動時にデフォルトのIssuer, 認可サーバーのメタデータを初期化する例：
+
+この例では `http://localhost:8080` を使用するため、ローカル開発時は `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` の設定が必要です。
 
 ```typescript
 import issuerMetadataConfigRaw from '../samples/issuer_metadata.json' with { type: 'json' }
@@ -1633,6 +1637,7 @@ verifyAccessToken(authz: AuthorizationServerIssuer, accessToken: string): Promis
      - `deferred_credential_endpoint`
    - insecure な URL が設定された場合、`insecure_http_not_allowed` エラーになります。
    - ローカル開発用途では、`initializeContext({ debug: true })` を指定することで HTTP endpoint を許可できます。
+   - Authorization Server の HTTP issuer は `debug` では許可されません。ローカル開発時は別途 `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` を設定してください。
 
 ```typescript
 const context = initializeContext({

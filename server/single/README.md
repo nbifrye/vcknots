@@ -52,13 +52,13 @@ To start this server, follow the steps below.
    
    # Edit .env file and set appropriate values
    # BASE_URL: Server base URL (e.g., http://localhost:8080)
-   # VCKNOTS_AUTHZ_HTTP_ALLOWED: Set to true to allow an HTTP endpoint for the Authorization Server Issuer (for local development/testing)
+   # VCKNOTS_AUTHZ_HTTP_ALLOWED: Set to true to allow an HTTP authorization server issuer for local development and testing
    # PORT: Server port number (default: 8080)
    # PRIVATE_KEY_PATH: Path to private key file (default: ../samples/certificate-openid-test/private_key_openid.pem)
    # CERTIFICATE_PATH: Path to certificate file (default: ../samples/certificate-openid-test/certificate_openid.pem)
    ```
 
-   Authorization Server Issuer identifiers require HTTPS by default. `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` allows an HTTP endpoint for the Authorization Server Issuer (for local development/testing). Do not enable `VCKNOTS_AUTHZ_HTTP_ALLOWED` in production. Query and fragment components remain prohibited.
+   Authorization server issuer identifiers require HTTPS by default. `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` allows an HTTP issuer for local development and testing. This override is independent of `VcknotsOptions.debug`; do not enable it in production. Query and fragment components remain prohibited.
 
    Configure the DPoP mode (`off` / `optional` / `required`) in `authorization_server.default_client` / `authorization_server.anonymous_client` in `server/samples/oauth-server.json`.
 

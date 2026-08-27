@@ -51,7 +51,7 @@ const { issuer, verifier, authz } = vcknots()
 
 Issuer と Verifier の両方のフローに関する包括的な例と詳細な設定については、[`server/single`](https://github.com/trustknots/vcknots/tree/main/server/single) または [`server/multi`](https://github.com/trustknots/vcknots/tree/main/server/multi) ディレクトリにあるサンプル実装を参照してください。
 
-Authorization Server の issuer identifier は RFC 8414 に従い、HTTPS スキームを使用し、クエリおよびフラグメントを含めないでください。`VCKNOTS_AUTHZ_HTTP_ALLOWED=true` を設定すると、Authorization Server の issuer に HTTP エンドポイントを許可します（ローカル開発/テスト用途）。本番環境では `VCKNOTS_AUTHZ_HTTP_ALLOWED` を有効化しないでください。HTTP(S) 以外のスキームとクエリ／フラグメントは常に拒否されます。
+Authorization Server の issuer identifier は RFC 8414 に従い、HTTPS スキームを使用し、クエリおよびフラグメントを含めないでください。`VCKNOTS_AUTHZ_HTTP_ALLOWED=true` を設定すると、ローカル開発およびテスト用に HTTP issuer を許可します。この設定は `VcknotsOptions.debug` から独立しています。本番環境では有効化しないでください。HTTP(S) 以外のスキームとクエリ／フラグメントは常に拒否されます。
 
 ### Issuer フロー
 

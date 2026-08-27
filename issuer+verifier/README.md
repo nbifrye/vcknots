@@ -51,7 +51,7 @@ For a step-by-step guide on how to use this library, please refer to our documen
 
 For comprehensive examples and detailed configurations for both Issuer and Verifier flows, please refer to the example implementations located in the [`server/single`](https://github.com/trustknots/vcknots/tree/main/server/single) or [`server/multi`](https://github.com/trustknots/vcknots/tree/main/server/multi) directory.
 
-Authorization Server Issuer identifiers must use HTTPS and must not contain query or fragment components, as required by RFC 8414. `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` allows an HTTP endpoint for the Authorization Server Issuer (for local development/testing). Do not enable `VCKNOTS_AUTHZ_HTTP_ALLOWED` in production. Non-HTTP(S) schemes and query or fragment components are always rejected.
+Authorization server issuer identifiers must use HTTPS and must not contain query or fragment components, as required by RFC 8414. `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` allows an HTTP issuer for local development and testing. This override is independent of `VcknotsOptions.debug`; do not enable it in production. Non-HTTP(S) schemes and query or fragment components are always rejected.
 
 ### Issuer Flow
 

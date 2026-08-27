@@ -87,7 +87,7 @@ cp .env.example .env
 | `ISSUER_BASE_URL` | Issuer（任意） | Issuer メタデータで使用するベース URL を上書き（デフォルト: `http://localhost:{ISSUER_PORT}`） |
 | `AUTHZ_PORT` | Authz（任意） | Authorization Server のリッスンポートを上書き（デフォルト: `8082`） |
 | `AUTHZ_BASE_URL` | Authz（任意） | Authz メタデータで使用するベース URL を上書き（デフォルト: `http://localhost:{AUTHZ_PORT}`） |
-| `VCKNOTS_AUTHZ_HTTP_ALLOWED` | Issuer・Authz | `true` を設定すると、Authorization Server の issuer に HTTP エンドポイントを許可（ローカル開発/テスト用途） |
+| `VCKNOTS_AUTHZ_HTTP_ALLOWED` | Issuer・Authz | `true` を設定すると、ローカル開発およびテスト用に HTTP の Authorization Server issuer を許可 |
 | `VERIFIER_PORT` | Verifier（任意） | Verifier のリッスンポートを上書き（デフォルト: `8083`） |
 | `VERIFIER_BASE_URL` | Verifier（任意） | Verifier メタデータで使用するベース URL を上書き（デフォルト: `http://localhost:{VERIFIER_PORT}`） |
 
@@ -95,7 +95,7 @@ cp .env.example .env
 
 **`TX_CODE_PEPPER` は全サーバーで必須**です。`tx_code` を DynamoDB に保存する前に HMAC-SHA256 でハッシュ化するための秘密値（pepper）です。`@trustknots/aws` は import 時にこの値を評価するため、未設定の場合は Issuer・Authorization Server・Verifier のいずれも起動時に `TX_CODE_PEPPER environment variable is required` でエラーになります。十分に長いランダム文字列を設定し、環境ごとに固定して運用してください（変更すると既存データの `tx_code` 検証に失敗します）。
 
-Authorization Server の issuer identifier は既定で HTTPS が必須で、クエリとフラグメントは使用できません。ローカルの Issuer と Authz の URL は既定値が HTTP のため、`.env.example` では `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` を設定しています。本番環境では `VCKNOTS_AUTHZ_HTTP_ALLOWED` を有効化しないでください。
+Authorization Server の issuer identifier は既定で HTTPS が必須で、クエリとフラグメントは使用できません。ローカルの Issuer と Authz の URL は既定値が HTTP のため、`.env.example` では `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` を設定しています。この設定は `VcknotsOptions.debug` から独立しています。本番環境では有効化しないでください。
 
 誤った `tx_code` の試行は、pre-authorized code ごとに `dynamodbPreAuthorizedCodeStore` が制限します（既定 **5** 回）。上限を変える場合は、`server/aws/src/apps` で provider を生成するときに `maxTxCodeAttempts` を渡してください（環境変数は未対応です）。上限到達後はコードが削除され、正しい `tx_code` でも以降のリクエストは `invalid_grant` になります。
 

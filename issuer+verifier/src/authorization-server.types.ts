@@ -1,19 +1,17 @@
 import { z } from 'zod'
 
-// RFC 8414 Section 2 requires an https URL without query or fragment components.
+// RFC 8414 Section 2 requires an HTTPS URL without query or fragment components.
 const authorizationServerIssuerSchema = z
   .string()
   .url()
-  .refine((value) => {
-    if (!URL.canParse(value)) return false
-    const { protocol } = new URL(value)
-    return (
-      protocol === 'https:' ||
-      (protocol === 'http:' && process.env.VCKNOTS_AUTHZ_HTTP_ALLOWED?.toLowerCase() === 'true')
-    )
-  }, 'Authorization Server Issuer must use the https scheme')
+  .refine(
+    (value) =>
+      /^https:/i.test(value) ||
+      (/^http:/i.test(value) && process.env.VCKNOTS_AUTHZ_HTTP_ALLOWED?.toLowerCase() === 'true'),
+    'Authorization server issuer must use the https scheme'
+  )
   .refine((value) => !/[?#]/.test(value), {
-    message: 'Authorization Server Issuer must not include query or fragment components',
+    message: 'Authorization server issuer must not include query or fragment components',
   })
   .brand('AuthorizationServerIssuer')
 export type AuthorizationServerIssuer = z.infer<typeof authorizationServerIssuerSchema>
