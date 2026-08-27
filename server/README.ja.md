@@ -33,6 +33,8 @@ AWS Lambda 向けのサーバー実装です。詳細は [aws/resources/README.j
 
 マルチテナント用のサーバー実装です（開発中）。エンドポイントは `/issuers`、`/authorizations`、`/verifiers` などのプレフィックス付きでマウントされます。
 
+既定のローカル base URL は HTTP です。`VCKNOTS_AUTHZ_HTTP_ALLOWED=true` を設定すると、Authorization Server Issuer に HTTP エンドポイントを許可します（ローカル開発/テスト用途）。`VCKNOTS_AUTHZ_HTTP_ALLOWED=true pnpm -F @trustknots/multi-server start` で起動してください。本番環境では `VCKNOTS_AUTHZ_HTTP_ALLOWED` を有効化しないでください。
+
 ### `samples/`
 
 サーバー実装で使用するサンプル設定ファイルが含まれています。

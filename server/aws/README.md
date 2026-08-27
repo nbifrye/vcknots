@@ -87,12 +87,15 @@ Edit `.env`. Table names are available in the CloudFormation stack outputs after
 | `ISSUER_BASE_URL` | Issuer (optional) | Override the base URL used in Issuer metadata (default: `http://localhost:{ISSUER_PORT}`) |
 | `AUTHZ_PORT` | Authz (optional) | Override the Authorization Server listening port (default: `8082`) |
 | `AUTHZ_BASE_URL` | Authz (optional) | Override the base URL used in Authz metadata (default: `http://localhost:{AUTHZ_PORT}`) |
+| `VCKNOTS_AUTHZ_HTTP_ALLOWED` | Authz | When set to `true`, an HTTP endpoint is allowed for the Authorization Server Issuer (for local development/testing) |
 | `VERIFIER_PORT` | Verifier (optional) | Override the Verifier listening port (default: `8083`) |
 | `VERIFIER_BASE_URL` | Verifier (optional) | Override the base URL used in Verifier metadata (default: `http://localhost:{VERIFIER_PORT}`) |
 
 **`ISSUERS_TABLE_NAME`, `PRE_CODES_TABLE_NAME` (Issuer & Authz), `NONCES_TABLE_NAME` (Issuer & Verifier), `AUTH_SERVERS_TABLE_NAME`, `VERIFIERS_TABLE_NAME`, and `REQUEST_OBJECTS_TABLE_NAME` are required** — each server exits at startup if a table name it needs is missing.
 
 **`TX_CODE_PEPPER` is required by every server.** It is a secret pepper used to HMAC-hash `tx_code` values before storing them in DynamoDB. Because `@trustknots/aws` evaluates it at import time, the Issuer, Authorization Server, and Verifier all fail at startup with `TX_CODE_PEPPER environment variable is required` when it is missing. Use a sufficiently long random secret and keep it stable per environment — rotating it invalidates previously stored `tx_code` hashes.
+
+Authorization Server Issuer identifiers require HTTPS by default and cannot contain query or fragment components. The local `.env.example` sets `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` because the local Authz URL defaults to HTTP. Do not enable `VCKNOTS_AUTHZ_HTTP_ALLOWED` in production.
 
 Failed `tx_code` attempts are limited per pre-authorized code (default **5**) by `dynamodbPreAuthorizedCodeStore`. To change the limit, pass `maxTxCodeAttempts` when constructing the provider in `server/aws/src/apps` (no environment variable yet). After the limit is reached the code is deleted, and further requests fail with `invalid_grant` even with the correct `tx_code`.
 

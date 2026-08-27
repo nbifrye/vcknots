@@ -36,6 +36,8 @@ For deploy and architecture details, see [aws/resources/README.md](./aws/resourc
 
 Multi-tenant server implementation (work in progress). Endpoints are mounted with prefixes such as `/issuers`, `/authorizations`, `/verifiers`, etc.
 
+Its default local base URL uses HTTP. `VCKNOTS_AUTHZ_HTTP_ALLOWED=true` allows an HTTP endpoint for the Authorization Server Issuer (for local development/testing). Start it with `VCKNOTS_AUTHZ_HTTP_ALLOWED=true pnpm -F @trustknots/multi-server start`. Do not enable `VCKNOTS_AUTHZ_HTTP_ALLOWED` in production.
+
 ### `samples/`
 
 Sample configuration files used by the server implementations.
