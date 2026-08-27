@@ -81,12 +81,12 @@ google-cloud/
 
    - `FIRESTORE_DATABASE_ID`
    - `BASE_URL`（例: `http://localhost:8080`）
-   - `VCKNOTS_AUTHZ_HTTP_ALLOWED`（`true` を設定すると、Authorization Server Issuer に HTTP エンドポイントを許可。ローカル開発/テスト用途）
+   - `VCKNOTS_AUTHZ_HTTP_ALLOWED`（`true` を設定すると、Authorization Server の issuer に HTTP エンドポイントを許可。ローカル開発/テスト用途）
    - `PORT`（既定値: `8080`）
    - `PRIVATE_KEY_PATH`
    - `CERTIFICATE_PATH`
 
-   本番環境では `VCKNOTS_AUTHZ_HTTP_ALLOWED` を有効化しないでください。この設定を有効にした場合でも、Authorization Server Issuer の query component と fragment component は禁止されます。
+   本番環境では `VCKNOTS_AUTHZ_HTTP_ALLOWED` を有効化しないでください。この設定を有効にした場合でも、Authorization Server の issuer にクエリとフラグメントは使用できません。
 
    DPoP の mode（`off` / `optional` / `required`）は、`server/samples/oauth-server.json` の OAuth policy で設定します。OAuth client と `private_key_jwt` 用の公開鍵などは `server/samples/oauth-clients.json` で管理します。Google Cloud 版も single server と同じ `server-core` 実装を利用するため、mode 別の挙動、nonce challenge、client authentication、エラー応答の詳細は [シングルサーバー README](../single/README.ja.md#post-token) を参照してください。
 

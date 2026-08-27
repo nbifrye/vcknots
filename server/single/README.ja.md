@@ -50,13 +50,13 @@ single/
    
    # .env ファイルを編集して適切な値を設定
    # BASE_URL: サーバーのベースURL（例: http://localhost:8080）
-   # VCKNOTS_AUTHZ_HTTP_ALLOWED: true を設定すると Authorization Server Issuer に HTTP エンドポイントを許可（ローカル開発/テスト用途）
+   # VCKNOTS_AUTHZ_HTTP_ALLOWED: true を設定すると Authorization Server の issuer に HTTP エンドポイントを許可（ローカル開発/テスト用途）
    # PORT: サーバーのポート番号（デフォルト: 8080）
    # PRIVATE_KEY_PATH: 秘密鍵ファイルのパス（デフォルト: ../samples/certificate-openid-test/private_key_openid.pem）
    # CERTIFICATE_PATH: 証明書ファイルのパス（デフォルト: ../samples/certificate-openid-test/certificate_openid.pem）
    ```
 
-   Authorization Server Issuer Identifier は既定で HTTPS が必須です。`VCKNOTS_AUTHZ_HTTP_ALLOWED=true` を設定すると、Authorization Server Issuer に HTTP エンドポイントを許可します（ローカル開発/テスト用途）。本番環境では `VCKNOTS_AUTHZ_HTTP_ALLOWED` を有効化しないでください。query component と fragment component は、この設定にかかわらず禁止されます。
+   Authorization Server の issuer identifier は既定で HTTPS が必須です。`VCKNOTS_AUTHZ_HTTP_ALLOWED=true` を設定すると、Authorization Server の issuer に HTTP エンドポイントを許可します（ローカル開発/テスト用途）。本番環境では `VCKNOTS_AUTHZ_HTTP_ALLOWED` を有効化しないでください。クエリとフラグメントは、この設定にかかわらず使用できません。
 
    DPoP の mode（`off` / `optional` / `required`）は、`server/samples/oauth-server.json` の `authorization_server.default_client` / `authorization_server.anonymous_client` で設定します。
 
