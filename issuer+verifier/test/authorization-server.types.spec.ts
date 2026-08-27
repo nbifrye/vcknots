@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
 import { afterEach, beforeEach, describe, it } from 'node:test'
+import { ZodError } from 'zod'
 import { AuthorizationServerIssuer } from '../src/authorization-server.types'
 
 const HTTP_ALLOWED_ENV = 'VCKNOTS_AUTHZ_HTTP_ALLOWED'
@@ -44,5 +45,10 @@ describe('AuthorizationServerIssuer', () => {
       if (accepted) assert.equal(parse(), issuer, issuer)
       else assert.throws(parse, issuer)
     }
+  })
+
+  it('reports malformed URLs as validation failures', () => {
+    assert.throws(() => AuthorizationServerIssuer('not a url'), ZodError)
+    assert.equal(AuthorizationServerIssuer.schema.safeParse('not a url').success, false)
   })
 })
